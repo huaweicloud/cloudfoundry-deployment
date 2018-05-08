@@ -5,7 +5,11 @@ If the flavor doesn't support kvm, you should use this new stemcell file instead
 
 In bosh-deployment/openstack/cpi.ym::
 
-
+- type: replace
+  path: /resource_pools/name=vms/stemcell?
+  value:
+    url: file://bosh-stemcell-3541.10-openstack-kvm-ubuntu-trusty-go_agent.tgz
+    sha1: 55b7f938c3affd0f7c94503209a130be1fce1fe6
 
 
 
