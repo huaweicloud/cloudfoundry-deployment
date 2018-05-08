@@ -1,0 +1,20 @@
+bosh create-env bosh-deployment/bosh.yml \
+    --state=state.json \
+    --vars-store=creds.yml \
+    -o bosh-deployment/openstack/cpi.yml \
+    -v director_name=bosh-1 \
+    -v internal_cidr=10.0.1.0/24 \
+    -v internal_gw=10.0.1.1 \
+    -v internal_ip=10.0.1.10 \
+    -v auth_url=https://iam.cn-east-2.myhwclouds.com/v3 \
+    -v az=cn-east-2a \
+    -v default_key_name=bosh \
+    -v default_security_groups=[bosh] \
+    -v net_id=69a82741-9896-4092-9fb6-be70f17fce01 \
+    -v openstack_password=key \
+    -v openstack_username=your_own_huawei_cloud_name \
+    -v openstack_domain=your_own_huawei_cloud_domain \
+    -v openstack_project=cn-east-2 \
+    -v private_key=./bosh.pem \
+    -v region=cn-east-2
+	
