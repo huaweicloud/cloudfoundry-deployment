@@ -3,7 +3,7 @@
   blob/master/stemcells/bosh-stemcell-3541.10-openstack-kvm-ubuntu-trusty-go_agent.tgz>`_ is : 55b7f938c3affd0f7c94503209a130be1fce1fe6
 
        
-* Using the following command to genaric the sha1 value of the stemcell
+* You could use the following command to genaric the sha1 value of the stemcell
 
 ::
 
