@@ -23,6 +23,24 @@
        -o cf-deployment/operations/openstack.yml \
        -o cf-deployment/operations/use-haproxy.yml
 
+** The haproxy_private_ip configed in `cf-deployment/iaas-support/openstack/cloud-config.yml <https://github.com/cloudfoundry/cf-deployment/blob/master/iaas-support/openstack/cloud-config.yml#L55:22>`_ file
+
+     ::
+
+          networks:
+          - name: default
+            type: manual
+            subnets:
+            - az: z1
+              range: 10.0.16.0/20
+              reserved: [10.0.16.2-10.0.16.50]
+              gateway: 10.0.16.1
+              static: [10.0.16.51]
+              cloud_properties:
+                net_id: ((network_id1))
+                security_groups: [cf]
+
+
 * Deploying Cloud Foundry with loadbalance
 
 ::
