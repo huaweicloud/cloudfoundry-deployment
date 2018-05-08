@@ -10,7 +10,7 @@ bosh create-env bosh-deployment/bosh.yml \
     -v az=cn-east-2a \
     -v default_key_name=bosh \
     -v default_security_groups=[bosh] \
-    -v net_id=69a82741-9896-4092-9fb6-be70f17fce01 \
+    -v net_id=your_own_subnet_id_in_huawei_cloud \
     -v openstack_password=key \
     -v openstack_username=your_own_huawei_cloud_name \
     -v openstack_domain=your_own_huawei_cloud_domain \
