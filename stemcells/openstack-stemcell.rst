@@ -22,6 +22,7 @@ In bosh-deployment/openstack/cpi.yml
 * Using the following command to genaric the sha1 value of the stemcell
 
 ::
+
 $sha1sum  bosh-stemcell-3541.10-openstack-kvm-ubuntu-trusty-go_agent.tgz
 55b7f938c3affd0f7c94503209a130be1fce1fe6  bosh-stemcell-3541.10-openstack-kvm-ubuntu-trusty-go_agent.tgz
 
