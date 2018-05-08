@@ -1,11 +1,11 @@
 
 sha1: 55b7f938c3affd0f7c94503209a130be1fce1fe6
 
-If the flavor doesn't support kvm, you should use this new stemcell file instead of the original stemcell file.
+If the flavor doesn't support kvm, you should use this new stemcell file instead of the original stemcell file, before running the create bosh director command.
 
-In bosh-deployment/openstack/cpi.ym
+In bosh-deployment/openstack/cpi.yml
 
-code::
+::
 
     - type: replace
       path: /resource_pools/name=vms/stemcell?
