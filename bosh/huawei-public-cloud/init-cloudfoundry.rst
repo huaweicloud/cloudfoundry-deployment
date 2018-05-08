@@ -24,8 +24,8 @@
        -o cf-deployment/operations/use-haproxy.yml
 
 
-** The haproxy_private_ip configed in `cf-deployment/iaas-support/openstack/cloud-config.yml <https://github.com/
-   cloudfoundry/cf-deployment/blob/master/iaas-support/openstack/cloud-config.yml#L55:22>`_ file
+* The haproxy_private_ip configed in `cf-deployment/iaas-support/openstack/cloud-config.yml <https://github.com/
+  cloudfoundry/cf-deployment/blob/master/iaas-support/openstack/cloud-config.yml#L55:22>`_ file
 
      ::
 
