@@ -29,10 +29,10 @@ vi keystonerc
 
 3. Install cloudfoundry by the following command which can be executed repeatly until success.
 ```
-. hack/install.sh
+./install.sh
 ```
 
 5. If you need to uninsall cloudfoundry, you can run the following command.
 ```
-. hack/uninstall.sh
+./uninstall.sh
 ```
