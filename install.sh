@@ -113,7 +113,7 @@ echo "*****************************Finished to create resource for bosh director
 
 # Creating resources for cf in public cloud
 echo "*************************Creating resources for cf in public cloud************************"
-cd ../cf-deployment-tf
+cd ../cf-deployment-tf-simple
 
 downloadTerraform
 
