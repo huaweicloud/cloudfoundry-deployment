@@ -3,13 +3,13 @@
 # ``install cloudfoundry by bosh``
 
 checkCmdSuccess(){
-    $@
-	if [ $? -eq 0 ]; then
-        echo "Running $@ is success!"
-	else
-		echo "Running $@ is failed!"
-		exit
-	fi
+  $@
+  if [ $? -eq 0 ]; then
+    echo "Running $@ is success!"
+  else
+    echo "Running $@ is failed!"
+    exit
+  fi
 }
 
 echo "*********************************************************************"
