@@ -21,7 +21,7 @@ echo "************************** prepare resources *****************************
 minimal_flavor=s3.medium.4
 small_flavor=s3.large.2
 small_highmem_flavor=s3.large.2
-general_flavor=small_highmem_flavor
+general_flavor=$small_highmem_flavor
 
 origin_dir=.cf_in_public_cloud
 ext_net_name="admin_external_net"
