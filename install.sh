@@ -3,13 +3,13 @@
 # ``install cloudfoundry by bosh``
 
 checkCmdSuccess(){
-  $@
-  if [ $? -eq 0 ]; then
-    echo "Running $@ is success!"
-  else
-    echo "Running $@ is failed!"
-  exit
-fi
+    $@
+	if [ $? -eq 0 ]; then
+        echo "Running $@ is success!"
+	else
+		echo "Running $@ is failed!"
+		exit
+	fi
 }
 
 echo "*********************************************************************"
@@ -18,9 +18,15 @@ echo "*********************************************************************"
 
 
 echo "************************** prepare resources *******************************"
+minimal_flavor=s3.medium.4
+small_flavor=s3.large.2
+small_highmem_flavor=s3.large.2
+general_flavor=small_highmem_flavor
+
 origin_dir=.cf_in_public_cloud
 ext_net_name="admin_external_net"
 ext_net_id="0a2228f2-7f8a-45f1-8e09-9039e1d09975"
+
 
 bosh_init_dir_tmp_file=bosh_init_dir_tmp.file
 
@@ -70,14 +76,11 @@ downloadTerraform(){
 		echo "Started to download the terraform package"
 		checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
 		unzip terraform_0.10.7_linux_amd64
+		echo "SUCCESS: Install terraform"
 	fi
 }
 
 downloadTerraform
-
-echo "*********************************************************************"
-echo "SUCCESS: Install terraform"
-echo "*********************************************************************"
 
 echo "**********************Started to create resource for bosh director in public cloud........**********************"
 checkCmdSuccess ./terraform init
@@ -162,10 +165,10 @@ if [ ! -d "bosh-deployment" ]; then
   checkCmdSuccess git clone https://github.com/huaweicloud/bosh-deployment
 fi
 
-flavor=s3.large.2
+
 # change flavor
-sed -i -e "s/\(instance_type: \).*/\1${flavor}/" bosh-deployment/huaweicloud/cloud-config.yml
-sed -i -e "s/\(instance_type: \).*/\1${flavor}/" bosh-deployment/huaweicloud/cpi.yml
+sed -i -e "s/\(instance_type: \).*/\1${general_flavor}/" bosh-deployment/huaweicloud/cloud-config.yml
+sed -i -e "s/\(instance_type: \).*/\1${general_flavor}/" bosh-deployment/huaweicloud/cpi.yml
 
 current_env_ips=$(bosh envs | awk '{print $1}')
 echo $current_env_ips
@@ -218,13 +221,17 @@ if [ ! -d "cf-deployment" ]; then
   checkCmdSuccess git clone https://github.com/huaweicloud/cf-deployment
 fi
 
-# sed -i -e "s/\(instance_type: \).*/\1${flavor}/" cf-deployment/iaas-support/huaweicloud/cloud-config.yml
+# change flavor in cf-deployment
+flavor_start_row=$(grep -n "\- name: minimal" cf-deployment/iaas-support/huaweicloud/cloud-config.yml | cut  -d  ":"  -f  1)
+sed -i  "$((flavor_start_row+2))s/\(instance_type: \).*/\1${minimal_flavor}/" cf-deployment/iaas-support/huaweicloud/cloud-config.yml
+sed -i  "$((flavor_start_row+5))s/\(instance_type: \).*/\1${small_flavor}/" cf-deployment/iaas-support/huaweicloud/cloud-config.yml
+sed -i  "$((flavor_start_row+8))s/\(instance_type: \).*/\1${small_highmem_flavor}/" cf-deployment/iaas-support/huaweicloud/cloud-config.yml
 
-#preip=$(echo $internal_gw | cut -d '.' -f 1-3)
-#reserved=\[$preip
-#sed -i -e "s/\(range: \).*/\1${internal_cidr}/" \
-#-e "s/\(reserved: \).*/\1${internal_cidr}/" \
-#-e "s/\(gateway: \).*/\1${internal_gw}/" cf-deployment/iaas-support/huaweicloud/cloud-config.yml
+preip=$(echo $internal_gw | cut -d '.' -f 1-3)
+reserved=\[$preip\.2\-$preip\.50]
+sed -i -e "s/\(range: \).*/\1${internal_cidr}/" \
+-e "s/\(reserved: \).*/\1${internal_cidr}/" \
+-e "s/\(gateway: \).*/\1${internal_gw}/" cf-deployment/iaas-support/huaweicloud/cloud-config.yml
 
 if [ ! -e "bosh-stemcell-1.0-huaweicloud-xen-ubuntu-trusty-go_agent.tgz" ]; then
   wget https://obs-bosh.obs.otc.t-systems.com/bosh-stemcell-1.0-huaweicloud-xen-ubuntu-trusty-go_agent.tgz
