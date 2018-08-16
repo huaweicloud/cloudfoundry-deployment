@@ -236,9 +236,9 @@ sed -i  "$((flavor_start_row+8))s/\(instance_type: \).*/\1${small_highmem_flavor
 
 preip=$(echo $internal_gw | cut -d '.' -f 1-3)
 reserved=\[$preip\.2\-$preip\.50]
-sed -i -e "s/\(range: \).*/\1${internal_cidr}/" \
--e "s/\(reserved: \).*/\1${internal_cidr}/" \
--e "s/\(gateway: \).*/\1${internal_gw}/" cf-deployment/iaas-support/huaweicloud/cloud-config.yml
+sed -i -e "s#\(range: \).*#\1${internal_cidr}#" \
+-e "s#\(reserved: \).*#\1${reserved}#" \
+-e "s#\(gateway: \).*#\1${internal_gw}#" cf-deployment/iaas-support/huaweicloud/cloud-config.yml
 
 if [ ! -e "bosh-stemcell-1.0-huaweicloud-xen-ubuntu-trusty-go_agent.tgz" ]; then
   wget https://obs-bosh.obs.otc.t-systems.com/bosh-stemcell-1.0-huaweicloud-xen-ubuntu-trusty-go_agent.tgz
