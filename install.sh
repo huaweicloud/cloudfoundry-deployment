@@ -169,6 +169,13 @@ fi
 # change flavor
 sed -i -e "s/\(instance_type: \).*/\1${general_flavor}/" bosh-deployment/huaweicloud/cloud-config.yml
 sed -i -e "s/\(instance_type: \).*/\1${general_flavor}/" bosh-deployment/huaweicloud/cpi.yml
+if grep -Fq "state_timeout" bosh-deployment/huaweicloud/cpi.yml
+then
+    "The state_timeout already add in cpi.yml"
+else
+    sed -i '42 istate_timeout: 30000' bosh-deployment/huaweicloud/cpi.yml
+fi
+
 
 current_env_ips=$(bosh envs | awk '{print $1}')
 echo $current_env_ips
