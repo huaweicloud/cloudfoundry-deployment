@@ -173,7 +173,7 @@ if grep -Fq "state_timeout" bosh-deployment/huaweicloud/cpi.yml
 then
     "The state_timeout already add in cpi.yml"
 else
-    sed -i '42a\      state_timeout: 30000' bosh-deployment/huaweicloud/cpi.yml
+    sed -i '74a\      state_timeout: 30000' bosh-deployment/huaweicloud/cpi.yml
 fi
 
 
