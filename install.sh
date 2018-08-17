@@ -18,6 +18,10 @@ echo "*********************************************************************"
 
 
 echo "************************** prepare resources *******************************"
+echo "configure keystonerc file"
+. ./keystonerc
+
+
 DNS_NAMESERVERS=8.8.8.8
 
 minimal_flavor=s3.medium.4
@@ -48,8 +52,6 @@ ext_net_id="0a2228f2-7f8a-45f1-8e09-9039e1d09975"
 
 bosh_init_dir_tmp_file=bosh_init_dir_tmp.file
 
-echo "configure keystonerc file"
-. ./keystonerc
 
 if [ ! -d $origin_dir ]; then
   mkdir $origin_dir
@@ -212,10 +214,10 @@ echo $current_env_ips
 
 if [[ $current_env_ips =~ $bosh_director_ip ]]
 then
-	echo "**********************The bosh director already exist!**********************"
+    echo "**********************The bosh director already exist!**********************"
 else
-	echo "**********************Started to create bosh director........**********************"
-	rm -rf creds.yml
+    echo "**********************Started to create bosh director........**********************"
+    rm -rf creds.yml
 	checkCmdSuccess bosh create-env bosh-deployment/bosh.yml \
     --state=state.json \
     --vars-store=creds.yml \
