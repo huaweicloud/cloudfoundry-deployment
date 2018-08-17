@@ -153,7 +153,7 @@ echo "************************Finished to create resource for cf in public cloud
 
 
 ############  update libary ##############################################
-# checkCmdSuccess apt-get update
+checkCmdSuccess apt-get update
 checkCmdSuccess echo yes | sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
 
 checkCmdSuccess ruby -v
@@ -163,6 +163,11 @@ cd ../../
 director_name=bosh-3
 bosh_director_ip=$external_ip
 export BOSH_ENVIRONMENT=$bosh_director_ip
+
+# install bosh cli
+checkCmdSuccess wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-5.1.1-linux-amd64
+checkCmdSuccesschmod +x bosh-cli-5.1.1-linux-amd64
+checkCmdSuccess sudo mv bosh-cli-5.1.1-linux-amd64 /usr/local/bin/bosh
 
 if [ ! -d "bosh-deployment" ]; then
   checkCmdSuccess git clone https://github.com/huaweicloud/bosh-deployment
