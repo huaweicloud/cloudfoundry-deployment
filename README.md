@@ -10,7 +10,7 @@ git clone https://github.com/huaweicloud/cloudfoundry-deployment/
 
 2. set cloud credentials.
 ```
-
+cd cloudfoundry-deployment
 vi keystonerc
 
   # set your own ENV in the file
