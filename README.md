@@ -31,7 +31,7 @@ vi keystonerc
 ./install.sh
 ```
 
-5. If you need to uninsall cloudfoundry, you can run the following command.
+4. If you need to uninsall cloudfoundry, you can run the following command.
 ```
 ./uninstall.sh
 ```
