@@ -75,7 +75,9 @@ downloadTerraform(){
   else
   	echo "Started to download the terraform package"
   	checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
-	echo yes | apt install unzip
+    unzip
+	if [ ! $? -eq 0 ];then
+	  echo yes | apt install zip
 	unzip terraform_0.10.7_linux_amd64
   	echo "SUCCESS: Install terraform"
   fi
