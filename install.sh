@@ -79,7 +79,7 @@ downloadTerraform(){
 	if [ ! $? -eq 0 ];then
 	  sudo apt-get update | apt install zip
 	fi
-	unzip terraform_0.10.7_linux_amd64
+	echo yes | unzip terraform_0.10.7_linux_amd64
   	echo "SUCCESS: Install terraform"
   fi
 }
