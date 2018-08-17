@@ -165,9 +165,12 @@ bosh_director_ip=$external_ip
 export BOSH_ENVIRONMENT=$bosh_director_ip
 
 # install bosh cli
-checkCmdSuccess wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-5.1.1-linux-amd64
-checkCmdSuccesschmod +x bosh-cli-5.1.1-linux-amd64
-checkCmdSuccess sudo mv bosh-cli-5.1.1-linux-amd64 /usr/local/bin/bosh
+bosh
+if [ ! $? -eq 0 ];then
+  checkCmdSuccess wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-5.1.1-linux-amd64
+  checkCmdSuccess chmod +x bosh-cli-5.1.1-linux-amd64
+  checkCmdSuccess sudo mv bosh-cli-5.1.1-linux-amd64 /usr/local/bin/bosh
+fi
 
 if [ ! -d "bosh-deployment" ]; then
   checkCmdSuccess git clone https://github.com/huaweicloud/bosh-deployment
@@ -179,7 +182,7 @@ sed -i -e "s/\(instance_type: \).*/\1${general_flavor}/" bosh-deployment/huaweic
 sed -i -e "s/\(instance_type: \).*/\1${general_flavor}/" bosh-deployment/huaweicloud/cpi.yml
 if grep -Fq "state_timeout" bosh-deployment/huaweicloud/cpi.yml
 then
-    "The state_timeout already add in cpi.yml"
+    echo "The state_timeout already add in cpi.yml"
 else
     sed -i '74a\    state_timeout: 30000' bosh-deployment/huaweicloud/cpi.yml
 fi
