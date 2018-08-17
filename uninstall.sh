@@ -43,7 +43,7 @@ fi
 
 # Deleting resources for cf in public cloud
 echo "*****************Deleting resources for cf in public cloud************************"
-cd bosh-openstack-environment-templates/cf-deployment-tf/
+cd bosh-openstack-environment-templates/cf-deployment-tf-simple/
 
 
 echo "*****************Waiting for the resources to be deleted for cf in public cloud.......************************"
