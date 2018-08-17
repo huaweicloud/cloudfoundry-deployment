@@ -67,7 +67,6 @@ else
   checkCmdSuccess ./generate_ssh_keypair.sh
 fi
 
-
 downloadTerraform(){
   ./terraform init
   if [ $? -eq 0 ]
@@ -76,7 +75,11 @@ downloadTerraform(){
   else
   	echo "Started to download the terraform package"
   	checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
-  	unzip terraform_0.10.7_linux_amd64
+    unzip
+	if [ ! $? -eq 0 ];then
+	  echo yes | apt install unzip
+	fi
+	unzip terraform_0.10.7_linux_amd64
   	echo "SUCCESS: Install terraform"
   fi
 }
