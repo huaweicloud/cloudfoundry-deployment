@@ -23,7 +23,6 @@ vi keystonerc
   export OS_TENANT_NAME=tenant
   export OS_REGION_NAME=eu-west-0
   export OS_AVAILABILITY_ZONE=eu-west-0b
-  export DNS_NAMESERVERS=100.125.0.41
   
 ```
 
