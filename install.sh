@@ -69,21 +69,22 @@ fi
 
 
 downloadTerraform(){
-    if [ -e "terraform_0.10.7_linux_amd64" ]
-	then
-		echo "The terraform_0.10.7_linux_amd64 file already exsit."
-	else
-		echo "Started to download the terraform package"
-		checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
-		unzip terraform_0.10.7_linux_amd64
-		echo "SUCCESS: Install terraform"
-	fi
+  ./terraform init
+  if [ $? -eq 0 ]
+  then
+  	echo "The terraform_0.10.7_linux_amd64 file already exsit."
+  else
+  	echo "Started to download the terraform package"
+  	checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
+  	unzip terraform_0.10.7_linux_amd64
+  	echo "SUCCESS: Install terraform"
+  fi
 }
 
 downloadTerraform
 
 echo "**********************Started to create resource for bosh director in public cloud........**********************"
-checkCmdSuccess ./terraform init
+
 
 echo "Waiting for the resources to be created in public cloud......."
 echo yes | ./terraform apply > $bosh_init_dir_tmp_file
@@ -115,7 +116,6 @@ echo "*****************************Finished to create resource for bosh director
 echo "*************************Creating resources for cf in public cloud************************"
 cd ../cf-deployment-tf-simple
 
-downloadTerraform
 
 cp terraform.tfvars.template terraform.tfvars
 
@@ -140,7 +140,7 @@ sed -i -e "s#\(auth_url = \"\).*#\1${OS_AUTH_URL}\"#" \
 -e "s/\(dns_nameservers = \[\).*/\1${dns_nameservers}\]/" terraform.tfvars
 
 echo "************************Started to create resource for cf in public cloud........************************"
-checkCmdSuccess ./terraform init
+downloadTerraform
 echo "************************Waiting for the resources to be created for cf in public cloud************************"
 cf_deployment_tf_tmp=cf_deployment_tf_tmp.file 
 checkCmdSuccess echo yes | ./terraform apply > $cf_deployment_tf_tmp
