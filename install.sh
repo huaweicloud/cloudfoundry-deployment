@@ -12,15 +12,38 @@ checkCmdSuccess(){
   fi
 }
 
+getFlavor(){
+
+
+}
+
 echo "*********************************************************************"
 echo "Begin $0"
 echo "*********************************************************************"
 
 
 echo "************************** prepare resources *******************************"
+DNS_NAMESERVERS=8.8.8.8
+
 minimal_flavor=s3.medium.4
 small_flavor=s3.large.2
 general_flavor=s3.large.2
+# get flavor by region and url
+if [[ $OS_AUTH_URL =~ "orange" ]]
+then
+  if [[ $OS_REGION_NAME = "as-south-0" ]]
+  then
+    minimal_flavor=s1.medium
+    small_flavor=s1.medium
+    general_flavor=s1.large
+  fi
+elif [[ $OS_AUTH_URL =~ "otc" ]]
+then
+  minimal_flavor=s2.medium.1
+  small_flavor=s2.medium.2
+  general_flavor=s2.large.2
+fi
+
 small_highmem_flavor=$general_flavor
 
 origin_dir=.cf_in_public_cloud
