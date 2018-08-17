@@ -86,10 +86,10 @@ else
 fi
 
 downloadTerraform(){
-  ./terraform init
+  ./terraform
   if [ $? -eq 0 ]
   then
-  	echo "The terraform_0.10.7_linux_amd64 file already exsit."
+  	echo "The terraform command already exsit."
   else
   	echo "Started to download the terraform package"
   	checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
@@ -102,12 +102,13 @@ downloadTerraform(){
   fi
 }
 
-downloadTerraform
+
 
 echo "**********************Started to create resource for bosh director in public cloud........**********************"
 
-
+downloadTerraform
 echo "Waiting for the resources to be created in public cloud......."
+checkCmdSuccess  ./terraform init
 echo yes | ./terraform apply > $bosh_init_dir_tmp_file
 
 default_key_name=$(grep -o 'default_key_name = [^,]*' $bosh_init_dir_tmp_file  |awk '{print $NF}')
