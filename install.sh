@@ -91,16 +91,16 @@ downloadTerraform(){
   ./terraform
   if [ $? -eq 0 ]
   then
-  	echo "The terraform command already exsit."
+    echo "The terraform command already exsit."
   else
-  	echo "Started to download the terraform package"
-        checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
-        unzip > /dev/null
-	if [ ! $? -eq 0 ];then
-	  sudo apt-get update | apt install zip
-	fi
-	echo yes | unzip terraform_0.10.7_linux_amd64
-  	echo "SUCCESS: Install terraform"
+    echo "Started to download the terraform package"
+    checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
+    unzip > /dev/null
+    if [ ! $? -eq 0 ];then
+      sudo apt-get update | apt install zip
+    fi
+      echo yes | unzip terraform_0.10.7_linux_amd64
+      echo "SUCCESS: Install terraform"
   fi
 }
 
