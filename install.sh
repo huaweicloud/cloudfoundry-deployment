@@ -94,8 +94,8 @@ downloadTerraform(){
   	echo "The terraform command already exsit."
   else
   	echo "Started to download the terraform package"
-  	checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
-    unzip > /dev/null
+        checkCmdSuccess wget -O terraform_0.10.7_linux_amd64 https://releases.hashicorp.com/terraform/0.10.7/terraform_0.10.7_linux_amd64.zip
+        unzip > /dev/null
 	if [ ! $? -eq 0 ];then
 	  sudo apt-get update | apt install zip
 	fi
@@ -167,6 +167,7 @@ echo "************************Started to create resource for cf in public cloud.
 downloadTerraform
 echo "************************Waiting for the resources to be created for cf in public cloud************************"
 cf_deployment_tf_tmp=cf_deployment_tf_tmp.file 
+checkCmdSuccess  ./terraform init
 checkCmdSuccess echo yes | ./terraform apply > $cf_deployment_tf_tmp
 cf_network_id=$(grep -o 'network_id = [^,]*' $cf_deployment_tf_tmp  |awk '{print $NF}')
 echo "************************Finished to create resource for cf in public cloud****************************************"
