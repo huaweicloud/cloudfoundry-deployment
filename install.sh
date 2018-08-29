@@ -24,6 +24,11 @@ echo "configure keystonerc file"
 
 DNS_NAMESERVERS=8.8.8.8
 
+director_name=bosh-3
+
+export OS_PROJECT_DOMAIN_NAME=$OS_DOMAIN_NAME
+export OS_USER_DOMAIN_NAME=$OS_DOMAIN_NAME
+
 minimal_flavor=s3.medium.4
 small_flavor=s3.large.2
 general_flavor=s3.large.2
@@ -182,7 +187,7 @@ checkCmdSuccess ruby -v
 
 ############  install bosh director ##############################################
 cd ../../
-director_name=bosh-3
+
 bosh_director_ip=$external_ip
 export BOSH_ENVIRONMENT=$bosh_director_ip
 
