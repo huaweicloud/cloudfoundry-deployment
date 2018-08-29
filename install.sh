@@ -93,7 +93,7 @@ else
 fi
 
 downloadTerraform(){
-  ./terraform
+  ./terraform -v
   if [ $? -eq 0 ]
   then
     echo "The terraform command already exsit."
