@@ -192,7 +192,7 @@ bosh_director_ip=$external_ip
 export BOSH_ENVIRONMENT=$bosh_director_ip
 
 # install bosh cli
-bosh
+bosh -v
 if [ ! $? -eq 0 ];then
   checkCmdSuccess wget https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-5.1.1-linux-amd64
   checkCmdSuccess chmod +x bosh-cli-5.1.1-linux-amd64
