@@ -1,5 +1,10 @@
 # cloudfoundry-deployment
 
+### Prerequisites
+
+A ubuntu VM requires at least 8 GB of RAM and 4U.
+
+
 ### Installation
 
 1. pull cloudfoundry-deployment github repository.
