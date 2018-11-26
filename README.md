@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-A ubuntu VM requires at least 8 GB of RAM and 4U.
+One ubuntu VM (> 14.04) requires at least 8 GB of RAM and 4U.
 
 
 ### Installation
