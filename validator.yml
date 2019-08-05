@@ -1,0 +1,37 @@
+---
+openstack:
+  auth_url: "https://iam-apigateway-proxy.hcsbeta.huawei.com:443/v3"
+  username: "CloudFoundry"
+  password: "password"
+  domain: "CloudFoundry"
+  project: "CloudFoundry"
+  region: "guangdong-tky-1"
+  default_key_name: bosh
+  default_security_groups: [bosh]
+  boot_from_volume: false # Boolean
+  config_drive: ~ # One of cdrom, disk, or nil
+  connection_options: # all connection options that are supported by Excon
+    ssl_verify_peer: false # Boolean
+    # ca_cert: <replace-me> # Multiline yaml String containing certificate chain
+
+validator:
+  use_external_ip: false # Defines from where the Validator is executed. False means from inside your OpenStack.
+  network_id: "8023a262-7be4-47ef-a86c-e440decb8d02"
+  floating_ip: 172.25.92.55
+  static_ip: 192.168.1.10
+  private_key_path: bosh.pem # relative to validator.yml, or absolute path
+  ntp: [0.pool.ntp.org, 1.pool.ntp.org] # List of String
+  releases:
+  - name: bosh-openstack-cpi
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-openstack-cpi-release?v=43
+    sha1: b9bd5fa8f06436e7b055620d3259877907f6d99a
+
+cloud_config:
+  vm_types: # See https://bosh.io/docs/cloud-config.html#vm-types
+  - name: default # Don't change this name
+    cloud_properties:
+      instance_type: FCD_4U4G40G
+
+extensions:
+  paths: [] # paths pointing to a directory. Absolute or relative to this config file.
+  config: {} # everything below 'config' is available in tests as `Validator::Api.configuration.extensions` inside your test code
